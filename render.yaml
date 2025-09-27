@@ -4,8 +4,12 @@ services:
     env: node
     plan: free
     buildCommand: |
-      npm install
-      npm run build
+      npm ci
+      echo "Building client..."
+      npm run build:client
+      echo "Building server..."
+      npm run build:server
+      echo "Build completed successfully"
     startCommand: npm start
     nodeVersion: 18
     envVars:
