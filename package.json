@@ -13,6 +13,7 @@
     "clean": "rm -rf dist node_modules/.cache"
   },
   "dependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
     "compression": "^1.8.1",
     "cross-env": "^7.0.3",
     "express": "^5.1.0",
@@ -23,6 +24,7 @@
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^6.26.0",
+    "typescript": "^5.2.2",
     "vite": "^6.3.6"
   },
   "optionalDependencies": {
@@ -31,9 +33,7 @@
   "devDependencies": {
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
-    "@types/express": "^5.0.3",
-    "@vitejs/plugin-react": "^4.7.0",
-    "typescript": "^5.2.2"
+    "@types/express": "^5.0.3"
   },
   "engines": {
     "node": ">=18.0.0"
