@@ -42,9 +42,23 @@ if (!isProd) {
   // Production mode - serve built static assets
   const distClientDir = path.resolve(process.cwd(), 'dist/client')
   
+  console.log('Looking for dist/client at:', distClientDir)
+  console.log('Current directory contents:', fs.readdirSync(process.cwd()))
+  
+  // Check if dist directory exists
+  const distDir = path.resolve(process.cwd(), 'dist')
+  if (!fs.existsSync(distDir)) {
+    console.error('Error: dist directory not found. Make sure to run npm run build first.')
+    console.log('Available directories:', fs.readdirSync(process.cwd()))
+    process.exit(1)
+  }
+  
+  console.log('dist directory contents:', fs.readdirSync(distDir))
+  
   // Check if dist/client directory exists
   if (!fs.existsSync(distClientDir)) {
     console.error('Error: dist/client directory not found. Make sure to run npm run build first.')
+    console.log('Available in dist:', fs.readdirSync(distDir))
     process.exit(1)
   }
   
@@ -52,6 +66,7 @@ if (!isProd) {
   const templatePath = path.join(distClientDir, 'index.html')
   if (!fs.existsSync(templatePath)) {
     console.error('Error: dist/client/index.html not found. Make sure to run npm run build first.')
+    console.log('Available in dist/client:', fs.readdirSync(distClientDir))
     process.exit(1)
   }
   

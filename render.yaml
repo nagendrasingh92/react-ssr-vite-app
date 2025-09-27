@@ -10,8 +10,14 @@ services:
       echo "Building server..."
       npm run build:server
       echo "Checking build output..."
+      pwd
+      ls -la
       ls -la dist/
-      ls -la dist/client/
+      if [ -d "dist/client" ]; then
+        ls -la dist/client/
+      else
+        echo "dist/client directory not found"
+      fi
       echo "Build completed successfully"
     startCommand: npm start
     nodeVersion: 18
