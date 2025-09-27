@@ -3,7 +3,18 @@ services:
     name: react-ssr-vite
     env: node
     plan: free
-    buildCommand: npm ci && npm run build
+    buildCommand: |
+      npm ci
+      echo "Starting build process..."
+      npm run build
+      echo "Build completed, checking output..."
+      ls -la
+      if [ -d "dist" ]; then
+        echo "dist directory found:"
+        ls -la dist/
+      else
+        echo "dist directory not found"
+      fi
     startCommand: npm start
     nodeVersion: 18
     envVars:
