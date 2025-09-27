@@ -9,6 +9,9 @@ services:
       npm run build:client
       echo "Building server..."
       npm run build:server
+      echo "Checking build output..."
+      ls -la dist/
+      ls -la dist/client/
       echo "Build completed successfully"
     startCommand: npm start
     nodeVersion: 18

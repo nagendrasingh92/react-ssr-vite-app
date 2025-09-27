@@ -11,6 +11,9 @@ const app = express()
 
 const isProd = process.env.NODE_ENV === 'production'
 
+console.log('Environment:', isProd ? 'production' : 'development')
+console.log('Working directory:', process.cwd())
+
 // Basic security & performance middleware
 app.use(helmet({
   contentSecurityPolicy: false // Keep simple for example; consider enabling with nonces in real apps
@@ -38,12 +41,26 @@ if (!isProd) {
 } else {
   // Production mode - serve built static assets
   const distClientDir = path.resolve(process.cwd(), 'dist/client')
+  
+  // Check if dist/client directory exists
+  if (!fs.existsSync(distClientDir)) {
+    console.error('Error: dist/client directory not found. Make sure to run npm run build first.')
+    process.exit(1)
+  }
+  
+  // Check if index.html exists
+  const templatePath = path.join(distClientDir, 'index.html')
+  if (!fs.existsSync(templatePath)) {
+    console.error('Error: dist/client/index.html not found. Make sure to run npm run build first.')
+    process.exit(1)
+  }
+  
   app.use('/assets', express.static(path.join(distClientDir, 'assets'), {
     maxAge: '1y',
     immutable: true
   }))
   app.use(express.static(distClientDir, { index: false, maxAge: '1h' }))
-  template = fs.readFileSync(path.join(distClientDir, 'index.html'), 'utf-8')
+  template = fs.readFileSync(templatePath, 'utf-8')
 }
 
 // Catch-all route for SSR
