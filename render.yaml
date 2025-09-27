@@ -3,22 +3,7 @@ services:
     name: react-ssr-vite
     env: node
     plan: free
-    buildCommand: |
-      npm ci
-      echo "Building client..."
-      npm run build:client
-      echo "Building server..."
-      npm run build:server
-      echo "Checking build output..."
-      pwd
-      ls -la
-      ls -la dist/
-      if [ -d "dist/client" ]; then
-        ls -la dist/client/
-      else
-        echo "dist/client directory not found"
-      fi
-      echo "Build completed successfully"
+    buildCommand: npm ci && npm run build
     startCommand: npm start
     nodeVersion: 18
     envVars:
